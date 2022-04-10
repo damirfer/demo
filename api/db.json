@@ -6,15 +6,7 @@
       "lastName": "Chastan",
       "username": "bchastan2",
       "email": "bchastan2@sun.com",
-      "status": "Active"
-    },
-    {
-      "id": 4,
-      "firstName": "Barry",
-      "lastName": "Schulze",
-      "username": "bschulze3",
-      "email": "bschulze3@aboutads.info",
-      "status": "Active",
+      "status": "Waiting",
       "password": "",
       "confirmPassword": ""
     },
@@ -57,38 +49,6 @@
       "username": "bconnellya",
       "email": "bconnellya@facebook.com",
       "status": "Waiting Approval"
-    },
-    {
-      "id": 12,
-      "firstName": "Almire",
-      "lastName": "Revington",
-      "username": "arevingtonb",
-      "email": "arevingtonb@is.gd",
-      "status": "Active"
-    },
-    {
-      "id": 14,
-      "firstName": "Adina",
-      "lastName": "Corker",
-      "username": "acorkerd",
-      "email": "acorkerd@creativecommons.org",
-      "status": "Active"
-    },
-    {
-      "id": 16,
-      "firstName": "Daria",
-      "lastName": "Ragge",
-      "username": "draggef",
-      "email": "draggef@microsoft.com",
-      "status": "Active"
-    },
-    {
-      "id": 17,
-      "firstName": "Willi",
-      "lastName": "Tuckley",
-      "username": "wtuckleyg",
-      "email": "wtuckleyg@gnu.org",
-      "status": "Active"
     },
     {
       "id": 18,

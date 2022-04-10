@@ -29,7 +29,7 @@
       <td style="white-space: nowrap;">
         <a routerLink="edit/{{user.id}}" class="btn btn-sm btn-primary me-1">Edit</a>
         <button [disabled]="true" class="btn btn-sm btn-secondary me-1">Assign</button>
-        <button class="btn btn-sm btn-danger btn-delete-user" (click)="showDeleteModal(user)" [disabled]="false">
+        <button class="btn btn-sm btn-danger btn-delete-user" (click)="showDeleteModal(user)" [disabled]="user.deletingOn">
           <span *ngIf="user.deletingOn" class="spinner-border spinner-border-sm"></span>
           <span *ngIf="!user.deletingOn">Delete</span>
         </button>

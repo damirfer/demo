@@ -48,12 +48,12 @@ export class UserListComponent implements OnInit {
 
   showDeleteModal(userToDelete: User): void {
     this.user = userToDelete;
-    this.user.deletingOn = true;
     this.showModal = true;
   }
 
   delete(): void {
     this.showModal = false;
+    this.user.deletingOn = true;
     this.userService
       .delete(this.user.id)
       .subscribe({

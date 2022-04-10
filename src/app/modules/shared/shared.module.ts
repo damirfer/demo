@@ -9,7 +9,7 @@ const components = [
 ]
 
 @NgModule({
-  declarations: [...components, ModalComponent],
+  declarations: [...components],
   imports: [
     CommonModule
   ],
