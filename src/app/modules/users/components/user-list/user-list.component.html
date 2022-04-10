@@ -1,0 +1,56 @@
+<div class="search-container mb-4">
+  <h1>User Management</h1>
+  <div class="d-flex justify-content-end align-items-center">
+    <a class="btn btn-outline-success" routerLink="add" >Add</a>
+  </div>
+  <div class="input-group my-2 ms-2">
+    <input type="text" class="form-control" placeholder="Search" aria-label="Search" [(ngModel)]="searchValue">
+    <button class="btn btn-outline-secondary" type="button" (click)="searchActive ? clearSearch() : onSearch()" id="button-addon2">{{ searchActive ? 'X' : 'S' }}</button>
+  </div>
+</div>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col" style="width: 20%;">First Name</th>
+      <th scope="col" style="width: 20%;">Last Name</th>
+      <th scope="col" style="width: 20%;">Username</th>
+      <th scope="col" style="width: 20%;">Email</th>
+      <th scope="col" style="width: 20%;">Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users$ | async">
+      <td>{{user.firstName}}</td>
+      <td>{{user.lastName}}</td>
+      <td>{{user.username}}</td>
+      <td>{{user.email}}</td>
+      <td>{{user.status}}</td>
+      <td style="white-space: nowrap;">
+        <a routerLink="edit/{{user.id}}" class="btn btn-sm btn-primary me-1">Edit</a>
+        <button [disabled]="true" class="btn btn-sm btn-secondary me-1">Assign</button>
+        <button class="btn btn-sm btn-danger btn-delete-user" (click)="showDeleteModal(user)" [disabled]="false">
+          <span *ngIf="user.deletingOn" class="spinner-border spinner-border-sm"></span>
+          <span *ngIf="!user.deletingOn">Delete</span>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<app-pagination [start]="startPage" [paginationConfig]="pagination$ | async" (load)="onLoad($event)"></app-pagination>
+
+<app-modal *ngIf="showModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">Delete User</h5>
+      <button type="button" class="btn-close" (click)="showModal = false" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      <p>Are you sure you want to delete: {{ user.firstName + ' ' + user.lastName }}</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="showModal = false">Close</button>
+      <button type="button" class="btn btn-primary" (click)="delete()" >Confirm</button>
+    </div>
+  </div>
+</app-modal>

@@ -1,0 +1,10 @@
+.search-container {
+    display: grid;
+    grid-template-columns: 4fr 1fr 1fr;
+}
+
+.btn-delete-user {
+    width: 40px;
+    text-align: center;
+    box-sizing: content-box;   
+}

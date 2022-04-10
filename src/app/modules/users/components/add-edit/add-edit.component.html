@@ -1,0 +1,75 @@
+<h1>{{ editMode ? 'Edit User' : 'Add User' }}</h1>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="row mb-3">
+        <div class="col">
+            <label>First Name</label>
+            <input type="text" formControlName="firstName" class="form-control"
+                [ngClass]="{'is-invalid': submitted && controls['firstName'].errors }">
+            <div *ngIf="submitted && controls['firstName'].errors" class="invalid-feedback">
+                <div *ngIf="controls['firstName'].errors['required']">First Name is required</div>
+            </div>
+        </div>
+        <div class="col">
+            <label>Last Name</label>
+            <input type="text" formControlName="lastName" class="form-control"
+                [ngClass]="{'is-invalid': submitted && controls['lastName'].errors }">
+            <div *ngIf="submitted && controls['lastName'].errors" class="invalid-feedback">
+                <div *ngIf="controls['lastName'].errors['required']">Last Name is required</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-7">
+            <label>Email</label>
+            <input type="text" formControlName="email" class="form-control"
+                [ngClass]="{'is-invalid': submitted && controls['email'].errors }">
+            <div *ngIf="submitted && controls['email'].errors" class="invalid-feedback">
+                <div *ngIf="controls['email'].errors['required']">Email is required</div>
+                <div *ngIf="controls['email'].errors['email']">Please use a valid email address</div>
+            </div>
+        </div>
+        <div class="col">
+            <label>Status</label>
+            <input type="text" formControlName="status" class="form-control"
+                [ngClass]="{'is-invalid': submitted && controls['status'].errors }">
+            <div *ngIf="submitted && controls['status'].errors" class="invalid-feedback">
+                <div *ngIf="controls['status'].errors['required']">Status is required</div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="!editMode" class="row mb-3">
+        <div class="col-5">
+            <label>Username</label>
+            <input type="text" formControlName="username" class="form-control"
+                [ngClass]="{'is-invalid': submitted && controls['username'].errors }">
+            <div *ngIf="submitted && controls['username'].errors" class="invalid-feedback">
+                <div *ngIf="controls['username'].errors['required']">Username is required</div>
+            </div>
+        </div>
+        <div class="col">
+            <label>Password</label>
+            <input type="password" formControlName="password" class="form-control"
+                [ngClass]="{'is-invalid': submitted && controls['password'].errors }">
+            <div *ngIf="submitted && controls['password'].errors" class="invalid-feedback">
+                <div *ngIf="controls['password'].errors['required']">Password is required</div>
+                <div *ngIf="controls['password'].errors['minlength']">Password must be at least 6 characters</div>
+            </div>
+        </div>
+        <div class="col">
+            <label>Confirm Password</label>
+            <input type="password" formControlName="confirmPassword" class="form-control"
+                [ngClass]="{'is-invalid': submitted && controls['confirmPassword'].errors }">
+            <div *ngIf="submitted && controls['confirmPassword'].errors" class="invalid-feedback">
+                <div *ngIf="controls['confirmPassword'].errors['required']">Confirm Password is required</div>
+                <div *ngIf="controls['confirmPassword'].errors['mustMatch']">Passwords must match</div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col">
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </div>
+</form>
