@@ -17,9 +17,10 @@ import { UserService } from '../../services/user.service';
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.scss'],
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent implements OnInit, OnDestroy {
   users$: Observable<User[]>;
   pagination$: Observable<Pagination>;
+  delete$!: Subscription;
   startPage: number = 1;
   searchValue: string = '';
   searchActive: boolean = false;
@@ -54,7 +55,7 @@ export class UserListComponent implements OnInit {
   delete(): void {
     this.showModal = false;
     this.user.deletingOn = true;
-    this.userService
+    this.delete$ = this.userService
       .delete(this.user.id)
       .subscribe({
         complete: () => this.onLoad(this.startPage),
@@ -63,4 +64,9 @@ export class UserListComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  ngOnDestroy(): void {
+    if(this.delete$) { this.delete$.unsubscribe() }
+
+  }
 }

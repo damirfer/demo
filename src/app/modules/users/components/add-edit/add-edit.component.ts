@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { MustMatch } from '../../../shared/utils/match.validator';
 import { UserService } from '../../services/user.service';
 
@@ -9,25 +10,28 @@ import { UserService } from '../../services/user.service';
   templateUrl: './add-edit.component.html',
   styleUrls: ['./add-edit.component.scss']
 })
-export class AddEditComponent implements OnInit {
+export class AddEditComponent implements OnInit, OnDestroy {
 
   form!: FormGroup;
   id!: string;
-  editMode!: boolean
-  submitted: boolean = false
+  editMode!: boolean;
+  submitted: boolean = false;
+  create$!: Subscription;
+  update$!: Subscription;
+  load$!: Subscription;
 
-  get controls() {return this.form.controls }
+  get controls() { return this.form.controls }
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private userService:UserService
+    private userService: UserService
   ) { }
 
   onSubmit() {
     this.submitted = true;
-    if(this.form.invalid){
+    if (this.form.invalid) {
       return;
     }
 
@@ -37,14 +41,14 @@ export class AddEditComponent implements OnInit {
 
   private createUser() {
     console.log(this.form.value);
-    this.userService.create(this.form.value).subscribe(() => {
-      this.router.navigate(['../'], {relativeTo: this.route})
+    this.create$ = this.userService.create(this.form.value).subscribe(() => {
+      this.router.navigate(['../'], { relativeTo: this.route })
     })
   }
 
   private updateUser() {
-    this.userService.update(this.id, this.form.value).subscribe(() => {
-      this.router.navigate(['../../'], {relativeTo: this.route})
+    this.update$ = this.userService.update(this.id, this.form.value).subscribe(() => {
+      this.router.navigate(['../../'], { relativeTo: this.route })
     })
   }
 
@@ -66,12 +70,18 @@ export class AddEditComponent implements OnInit {
       confirmPassword: ['', this.editMode ? Validators.nullValidator : Validators.required]
     }, formOptions)
 
-    if(this.editMode) {
-      this.userService.getById(this.id).subscribe(
+    if (this.editMode) {
+      this.load$ = this.userService.getById(this.id).subscribe(
         res => this.form.patchValue(res)
       )
     }
 
+  }
+
+  ngOnDestroy(): void {
+    if (this.create$) { this.create$.unsubscribe() }
+    if (this.update$) { this.create$.unsubscribe() }
+    if (this.load$) { this.create$.unsubscribe() }
   }
 
 }
