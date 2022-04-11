@@ -66,7 +66,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {}
 
   ngOnDestroy(): void {
-    if(this.delete$) { this.delete$.unsubscribe() }
+    if(Boolean(this.delete$)) { this.delete$.unsubscribe() }
 
   }
 }

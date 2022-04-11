@@ -80,8 +80,8 @@ export class AddEditComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     if (this.create$) { this.create$.unsubscribe() }
-    if (this.update$) { this.create$.unsubscribe() }
-    if (this.load$) { this.create$.unsubscribe() }
+    if (this.update$) { this.update$.unsubscribe() }
+    if (this.load$) { this.load$.unsubscribe() }
   }
 
 }
